@@ -51,10 +51,10 @@ function loadPlayAgainButton () {
           document.body.appendChild(new window.wordle.bundle.GameApp());
 
           const themeManager = document.querySelector('game-app').shadowRoot.querySelector('game-theme-manager');
-          if (localStorage.getItem('darkTheme') === 'true')
+          if (localStorage.getItem('nyt-wordle-darkmode') === 'true')
             themeManager.setDarkTheme(true);
           
-          if (localStorage.getItem('colorBlindTheme') === 'true')
+          if (localStorage.getItem('nyt-wordle-cbmode') === 'true')
             themeManager.setColorBlindTheme(true);
 
           const newModal = document.querySelector('game-app').shadowRoot.querySelector('game-modal');
