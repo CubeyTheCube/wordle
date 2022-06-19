@@ -1,3 +1,5 @@
+let openedNewGame = false;
+
 const appObserver = new MutationObserver((mutationsList) => {
   for (const mutation of mutationsList) {
     if (mutation.addedNodes && mutation.addedNodes[0].tagName === 'GAME-APP') {
@@ -17,7 +19,7 @@ function loadPlayAgainButton () {
   const modal = document.querySelector('game-app').shadowRoot.querySelector('game-modal');
   const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'open' && mutation.target.getAttribute('open') === '') {
+      if (mutation.attributeName === 'open' && mutation.target.getAttribute('open') === '' && mutation.target.querySelector('game-stats')) {
         const countdown = mutation.target.querySelector('game-stats').shadowRoot.querySelector('.countdown');
         while (countdown.firstChild)
           countdown.removeChild(countdown.firstChild);
@@ -48,18 +50,31 @@ function loadPlayAgainButton () {
         button.addEventListener('click', () => {
           observer.disconnect();
           document.body.removeChild(document.querySelector('game-app'));
+
+          /*
+          const darkmode = localStorage.getItem('nyt-wordle-darkmode');
+          const cbmode = localStorage.getItem('nyt-wordle-cbmode');
+          */
+          localStorage.clear();
+
+          openedNewGame = true;
           document.body.appendChild(new window.wordle.bundle.GameApp());
 
+          /*
           const themeManager = document.querySelector('game-app').shadowRoot.querySelector('game-theme-manager');
-          if (localStorage.getItem('nyt-wordle-darkmode') === 'true')
+          if (darkmode === 'true')
             themeManager.setDarkTheme(true);
           
-          if (localStorage.getItem('nyt-wordle-cbmode') === 'true')
+          if (cbmode === 'true')
             themeManager.setColorBlindTheme(true);
+          */
 
           const newModal = document.querySelector('game-app').shadowRoot.querySelector('game-modal');
           observer.observe(newModal, { attributes: true });
         });
+      } else if (mutation.attributeName === 'open' && mutation.target.getAttribute('open') === '' && mutation.target.querySelector('game-help') && openedNewGame) {
+        mutation.target.removeAttribute('open');
+        mutation.target.removeChild(mutation.target.querySelector('game-help'));
       }
     }
   });
