@@ -1,5 +1,7 @@
 let openedNewGame = false;
 
+localStorage.setItem('nyt-wordle-state', '');
+
 const appObserver = new MutationObserver((mutationsList) => {
   for (const mutation of mutationsList) {
     if (mutation.addedNodes && mutation.addedNodes[0].tagName === 'GAME-APP') {
