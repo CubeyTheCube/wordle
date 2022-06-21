@@ -57,7 +57,7 @@ function loadPlayAgainButton () {
           const darkmode = localStorage.getItem('nyt-wordle-darkmode');
           const cbmode = localStorage.getItem('nyt-wordle-cbmode');
           */
-          localStorage.clear();
+          localStorage.setItem('nyt-wordle-state', '');
 
           openedNewGame = true;
           document.body.appendChild(new window.wordle.bundle.GameApp());
