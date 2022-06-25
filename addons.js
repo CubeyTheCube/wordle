@@ -53,10 +53,9 @@ function loadPlayAgainButton () {
           observer.disconnect();
           document.body.removeChild(document.querySelector('game-app'));
 
-          /*
           const darkmode = localStorage.getItem('nyt-wordle-darkmode');
           const cbmode = localStorage.getItem('nyt-wordle-cbmode');
-          */
+
           localStorage.removeItem('nyt-wordle-darkmode');
           localStorage.removeItem('nyt-wordle-cbmode');
           localStorage.setItem('nyt-wordle-state', '');
@@ -64,14 +63,12 @@ function loadPlayAgainButton () {
           openedNewGame = true;
           document.body.appendChild(new window.wordle.bundle.GameApp());
 
-          /*
           const themeManager = document.querySelector('game-app').shadowRoot.querySelector('game-theme-manager');
           if (darkmode === 'true')
             themeManager.setDarkTheme(true);
           
           if (cbmode === 'true')
             themeManager.setColorBlindTheme(true);
-          */
 
           const newModal = document.querySelector('game-app').shadowRoot.querySelector('game-modal');
           observer.observe(newModal, { attributes: true });
